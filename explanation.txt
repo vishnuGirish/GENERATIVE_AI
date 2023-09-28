@@ -1,0 +1,68 @@
+Loading and Preprocessing Data:
+=================================
+
+The code begins by loading and preprocessing the text data from the file "your_text_data.txt." This text data will be used to train the text generator.
+
+
+
+Character Mapping:
+================
+
+It creates character-to-index (char_to_idx) and index-to-character (idx_to_char) dictionaries to map characters to integers and vice versa. This mapping is essential for converting text data into a format that the model can work with.
+
+
+
+Creating Training Data and Labels:
+==================================
+
+The text is divided into overlapping sequences of a fixed length (maxlen). For each sequence, the next character in the text is considered the target label. These sequences and their corresponding target labels are used for training the model.
+
+
+
+Vectorizing the Data:
+=====================
+
+The training data (x) and target labels (y) are converted into a suitable format for training. This involves one-hot encoding of characters. The x array represents input sequences, and the y array represents the corresponding target characters.
+
+
+
+Defining the Model:
+===================
+
+The model architecture is defined using the Keras Sequential API. It consists of two LSTM layers: a 256-unit LSTM layer with return_sequences=True (to pass sequences to the next LSTM layer) and a 128-unit LSTM layer. These layers are followed by a Dense layer with a softmax activation function to predict the next character.
+
+
+Compiling the Model:
+=====================
+
+The model is compiled with the categorical cross-entropy loss function and the Adam optimizer. This configuration is suitable for character-level text generation tasks.
+
+
+
+Training the Model:
+===================
+
+The model is trained on the vectorized training data (x and y) using a batch size of 128 and 100 training epochs. Training aims to minimize the cross-entropy loss between predicted and actual characters.
+
+
+
+Generating Text:
+================
+
+The code prepares to generate text by specifying a seed text (seed_text) and the number of characters to generate (num_chars_to_generate).
+
+
+Text Generation Loop:
+=======================
+
+Inside a loop, the code generates one character at a time. For each character to be generated:
+It prepares an input sequence (x_pred) based on the current seed_text.
+It adjusts the character prediction using a temperature parameter to control randomness.
+It samples the next character based on the adjusted probability distribution.
+The generated character is appended to the generated_text, and the seed_text is updated by removing the first character and adding the newly generated character.
+
+
+Printing the Generated Text:
+============================
+
+Finally, the code prints the generated text, which is the result of character-by-character generation based on the seed text and the trained model
